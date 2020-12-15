@@ -1,9 +1,19 @@
-// TypeScript Example.
+import express from "express"
 
-type MyString = {
-   value: string
+
+const main = async () => {
+
+   const app = express()
+
+   const port = process.env.PORT || 4000
+   app.listen(port, () => {
+      console.log(`Server started on port ${port}`)
+   })
+
 }
 
-const aString: MyString = { value: 'Hello World! ' }
-
-console.log(aString.value)
+try {
+   main()
+} catch (error) {
+   console.log(error)
+}

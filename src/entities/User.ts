@@ -1,13 +1,14 @@
 import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
-import { Field, ID, ObjectType } from "type-graphql";
+import { ObjectId } from "@mikro-orm/mongodb";
+import { Field, ObjectType } from "type-graphql";
 
 @ObjectType() // type-graphql
 @Entity()     // orm
 export class User {
 
-   @Field(() => ID)
+   @Field(() => ObjectId)
    @PrimaryKey()
-   id: string
+   _id: ObjectId
 
    @Field()
    @Property()

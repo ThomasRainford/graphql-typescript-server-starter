@@ -1,7 +1,27 @@
-// import { OrmContext } from "src/types";
-import { /*Ctx,*/ Query, Resolver } from "type-graphql";
+import { OrmContext } from "src/types";
+import { User } from "../entities/User";
+import { Arg, Ctx, Field, Mutation, ObjectType, Query, Resolver } from "type-graphql";
+import { UserRegisterInput } from "./input-types/UserRegisterInput";
 
-@Resolver()
+@ObjectType()
+class FieldError {
+   @Field()
+   field: string
+
+   @Field()
+   message: string
+}
+
+@ObjectType()
+class UserResponse {
+   @Field(() => [FieldError], { nullable: true })
+   errors?: FieldError[]
+
+   @Field(() => User, { nullable: true })
+   user?: User
+}
+
+@Resolver(User)
 export class UserResolver {
 
    // temp query for server to work
@@ -10,5 +30,24 @@ export class UserResolver {
       //@Ctx() { em }: OrmContext
    ): string {
       return 'Me query'
+   }
+
+   @Mutation(() => User)
+   register(
+      @Arg('registerInput') registerInput: UserRegisterInput,
+      @Ctx() { em }: OrmContext
+   ): UserResponse {
+
+      const user = new User({
+         email: registerInput.email,
+         username: registerInput.username,
+         password: registerInput.password,
+      })
+
+      em.persist(user).flush()
+
+      return {
+         user
+      }
    }
 }

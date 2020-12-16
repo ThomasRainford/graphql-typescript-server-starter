@@ -4,5 +4,6 @@ declare namespace NodeJS {
     MONGO_PASSWORD: string;
     MONGO_HOST: string;
     CORS_ORIGIN: string;
+    SESSION_SECRET: string;
   }
 }

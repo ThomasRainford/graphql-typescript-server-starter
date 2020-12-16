@@ -10,7 +10,6 @@ import { UserResolver } from "./resolvers/user"
 
 const main = async () => {
 
-   // mikro-orm config will eventually be in a seperate json file.
    const orm = await MikroORM.init(ormConfig)
 
    const app = express()

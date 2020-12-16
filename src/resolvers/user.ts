@@ -2,6 +2,7 @@ import { OrmContext } from "src/types";
 import { User } from "../entities/User";
 import { Arg, Ctx, Field, Mutation, ObjectType, Query, Resolver } from "type-graphql";
 import { UserRegisterInput } from "./input-types/UserRegisterInput";
+import { ObjectId } from "@mikro-orm/mongodb";
 
 @ObjectType()
 class FieldError {
@@ -27,25 +28,49 @@ export class UserResolver {
    // temp query for server to work
    @Query(() => String)
    me(
-      //@Ctx() { em }: OrmContext
-   ): string {
-      return 'Me query'
+      @Ctx() { em, req }: OrmContext
+   ): ObjectId | undefined {
+      console.log(req.session.userId)
+      return req.session.userId
    }
 
    @Mutation(() => UserResponse)
-   register(
+   async register(
       @Arg('registerInput') registerInput: UserRegisterInput,
       @Ctx() { em, req }: OrmContext
-   ): UserResponse {
+   ): Promise<UserResponse> {
+
+      const { email, username, password } = registerInput
+      const repo = em.getRepository(User)
+
+      const hasUser = await repo.findOne({ email, username })
+
+      if (hasUser) {
+         return {
+            errors: [
+               {
+                  field: 'registerInput',
+                  message: 'Already registered'
+               }
+            ]
+         }
+      }
 
       const user = new User({
-         email: registerInput.email,
-         username: registerInput.username,
-         password: registerInput.password,
+         email,
+         username,
+         password,
       })
 
-      //em.persist(user).flush()
+      em.persistAndFlush(user)
 
+      const userIndb = await repo.findOne({ email: user.email })
+      const userId = userIndb?._id
+
+      // Stores user id session
+      // Gives a cookie to the user
+      // Logs them in once registered
+      req.session.userId = userId
 
       return {
          user

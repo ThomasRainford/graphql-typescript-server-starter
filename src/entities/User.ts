@@ -11,16 +11,20 @@ export class User {
    @PrimaryKey()
    _id: ObjectId
 
-   @Field()
-   @Property()
-   username: string
+   // @Field()
+   // @SerializedPrimaryKey()
+   // id
 
    @Field()
-   @Property()
-   email: string
+   @Property({ type: 'text', unique: true })
+   username!: string
+
+   @Field()
+   @Property({ type: 'text', unique: true })
+   email!: string
 
    @Property()
-   password: string
+   password!: string
 
    @Field(() => Date)
    @Property()

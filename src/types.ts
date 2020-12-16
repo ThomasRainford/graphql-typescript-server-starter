@@ -1,8 +1,10 @@
 import { EntityManager, IDatabaseDriver, Connection } from "@mikro-orm/core";
-
+import { ObjectId } from "@mikro-orm/mongodb";
+import { Redis } from "ioredis";
 
 export type OrmContext = {
    em: EntityManager<IDatabaseDriver<Connection>>
-   req: Request & { session: { userId: number } },
+   req: Request & { session: { userId: ObjectId | undefined } },
    res: Response,
+   redis: Redis
 }

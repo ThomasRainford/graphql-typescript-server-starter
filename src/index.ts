@@ -11,6 +11,7 @@ import ormConfig from './mikro-orm.config'
 import { UserResolver } from "./resolvers/user"
 import Redis from 'ioredis'
 import { COOKIE_NAME, __prod__ } from './constants'
+import { OrmContext } from './types'
 
 const main = async () => {
 
@@ -52,10 +53,11 @@ const main = async () => {
          resolvers: [UserResolver],
          validate: false
       }),
-      context: ({ req, res }) => ({
+      context: ({ req, res }: never): OrmContext => ({
          em: orm.em,
          req,
          res,
+         redis,
       })
    })
 

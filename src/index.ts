@@ -1,10 +1,12 @@
 import { MikroORM } from '@mikro-orm/core'
+import { MongoHighlighter } from '@mikro-orm/mongo-highlighter'
 import { ApolloServer } from "apollo-server-express"
 import express from "express"
 import 'reflect-metadata'
 import { buildSchema } from "type-graphql"
 import { User } from './entities/User'
 import { UserResolver } from "./resolvers/user"
+import 'dotenv-safe/config'
 
 
 const main = async () => {
@@ -14,6 +16,9 @@ const main = async () => {
       entities: [User],
       dbName: 'test-db-name',
       type: 'mongo',
+      clientUrl: `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}`,
+      highlighter: new MongoHighlighter(),
+
    })
 
    const app = express()

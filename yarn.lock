@@ -85,6 +85,13 @@
     reflect-metadata "0.1.13"
     strip-json-comments "3.1.1"
 
+"@mikro-orm/mongo-highlighter@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@mikro-orm/mongo-highlighter/-/mongo-highlighter-1.0.0.tgz#904e086083ed0da10b58007f1e010d745de4dada"
+  integrity sha512-pPb/f1TKDBbJ8fH6Bbc5qMr/52edtA+vQrEKmuF3T7z9/feMrS6laW6FIpJXJJeP5sn0w4udjc/BIc4ntm4QHg==
+  dependencies:
+    ansi-colors "^4.1.1"
+
 "@mikro-orm/mongodb@^4.3.4":
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/@mikro-orm/mongodb/-/mongodb-4.3.4.tgz#544abc94c20e33efc81b0962dbea717d3c8fc0ab"
@@ -1299,6 +1306,18 @@ dot-prop@^5.2.0:
   integrity sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==
   dependencies:
     is-obj "^2.0.0"
+
+dotenv-safe@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv-safe/-/dotenv-safe-8.2.0.tgz#8d548c7318a62c09a66c4dc8c31864cc007c78ba"
+  integrity sha512-uWwWWdUQkSs5a3mySDB22UtNwyEYi0JtEQu+vDzIqr9OjbDdC2Ip13PnSpi/fctqlYmzkxCeabiyCAOROuAIaA==
+  dependencies:
+    dotenv "^8.2.0"
+
+dotenv@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
+  integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
 
 duplexer3@^0.1.4:
   version "0.1.4"

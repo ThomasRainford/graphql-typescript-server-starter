@@ -3,6 +3,7 @@ import { User } from "../entities/User";
 import { Arg, Ctx, Field, Mutation, ObjectType, Query, Resolver } from "type-graphql";
 import { UserRegisterInput } from "./input-types/UserRegisterInput";
 import { ObjectId } from "@mikro-orm/mongodb";
+//import session from "express-session";
 
 @ObjectType()
 class FieldError {
@@ -28,7 +29,7 @@ export class UserResolver {
    // temp query for server to work
    @Query(() => String)
    me(
-      @Ctx() { em, req }: OrmContext
+      @Ctx() { req }: OrmContext
    ): ObjectId | undefined {
       console.log(req.session.userId)
       return req.session.userId
@@ -42,6 +43,8 @@ export class UserResolver {
 
       const { email, username, password } = registerInput
       const repo = em.getRepository(User)
+
+      await repo.nativeDelete({ email, username })
 
       const hasUser = await repo.findOne({ email, username })
 
@@ -62,7 +65,7 @@ export class UserResolver {
          password,
       })
 
-      em.persistAndFlush(user)
+      await em.persistAndFlush(user)
 
       const userIndb = await repo.findOne({ email: user.email })
       const userId = userIndb?._id

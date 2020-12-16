@@ -10,7 +10,7 @@ import { buildSchema } from "type-graphql"
 import ormConfig from './mikro-orm.config'
 import { UserResolver } from "./resolvers/user"
 import Redis from 'ioredis'
-import { __prod__ } from './constants'
+import { COOKIE_NAME, __prod__ } from './constants'
 
 const main = async () => {
 
@@ -30,7 +30,7 @@ const main = async () => {
 
    app.use(
       session({
-         name: 'temp-name',
+         name: COOKIE_NAME,
          store: new RedisStore({
             client: redis,
             disableTouch: true

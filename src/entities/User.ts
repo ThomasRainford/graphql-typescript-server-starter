@@ -24,11 +24,11 @@ export class User {
 
    @Field(() => Date)
    @Property()
-   createdAt: Date
+   createdAt = new Date()
 
    @Field(() => Date)
-   @Property()
-   updatedAt: Date
+   @Property({ onUpdate: () => new Date() })
+   updatedAt = new Date()
 
    constructor({ email, username, password }: UserRegisterInput) {
       this.email = email

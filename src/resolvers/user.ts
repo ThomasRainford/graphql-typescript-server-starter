@@ -35,7 +35,7 @@ export class UserResolver {
    @Mutation(() => UserResponse)
    register(
       @Arg('registerInput') registerInput: UserRegisterInput,
-      @Ctx() { em }: OrmContext
+      @Ctx() { em, req }: OrmContext
    ): UserResponse {
 
       const user = new User({
@@ -44,10 +44,13 @@ export class UserResolver {
          password: registerInput.password,
       })
 
-      em.persist(user).flush()
+      //em.persist(user).flush()
+
 
       return {
          user
       }
    }
+
+
 }

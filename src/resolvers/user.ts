@@ -1,11 +1,14 @@
-import { Query, Resolver } from "type-graphql";
+// import { OrmContext } from "src/types";
+import { /*Ctx,*/ Query, Resolver } from "type-graphql";
 
 @Resolver()
 export class UserResolver {
 
    // temp query for server to work
    @Query(() => String)
-   me(): string {
+   me(
+      //@Ctx() { em }: OrmContext
+   ): string {
       return 'Me query'
    }
 }

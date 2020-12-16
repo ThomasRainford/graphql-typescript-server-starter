@@ -32,7 +32,7 @@ export class UserResolver {
       return 'Me query'
    }
 
-   @Mutation(() => User)
+   @Mutation(() => UserResponse)
    register(
       @Arg('registerInput') registerInput: UserRegisterInput,
       @Ctx() { em }: OrmContext

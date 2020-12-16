@@ -1,12 +1,16 @@
 import { MikroORM } from '@mikro-orm/core'
 import { ApolloServer } from "apollo-server-express"
+import connectRedis from 'connect-redis'
 import cors from 'cors'
 import 'dotenv-safe/config'
 import express from "express"
+import session from 'express-session'
 import 'reflect-metadata'
 import { buildSchema } from "type-graphql"
 import ormConfig from './mikro-orm.config'
 import { UserResolver } from "./resolvers/user"
+import Redis from 'ioredis'
+import { COOKIE_NAME, __prod__ } from './constants'
 
 const main = async () => {
 
@@ -14,10 +18,32 @@ const main = async () => {
 
    const app = express()
 
+   const RedisStore = connectRedis(session)
+   const redis = new Redis()
+
    app.use(
       cors({
          origin: process.env.CORS_ORIGIN,
          credentials: true,
+      })
+   )
+
+   app.use(
+      session({
+         name: COOKIE_NAME,
+         store: new RedisStore({
+            client: redis,
+            disableTouch: true
+         }),
+         cookie: {
+            maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
+            httpOnly: true,
+            sameSite: "lax", // csrf
+            secure: __prod__, // cookie only works in https
+         },
+         saveUninitialized: false,
+         secret: process.env.SESSION_SECRET,
+         resave: false,
       })
    )
 

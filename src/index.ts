@@ -1,5 +1,6 @@
 import { MikroORM } from '@mikro-orm/core'
 import { ApolloServer } from "apollo-server-express"
+import cors from 'cors'
 import 'dotenv-safe/config'
 import express from "express"
 import 'reflect-metadata'
@@ -14,12 +15,23 @@ const main = async () => {
 
    const app = express()
 
+   app.use(
+      cors({
+         origin: process.env.CORS_ORIGIN,
+         credentials: true,
+      })
+   )
+
    const apolloServer = new ApolloServer({
       schema: await buildSchema({
          resolvers: [UserResolver],
          validate: false
       }),
-      context: () => ({ em: orm.em })
+      context: ({ req, res }) => ({
+         em: orm.em,
+         req,
+         res,
+      })
    })
 
    apolloServer.applyMiddleware({

@@ -1,31 +1,43 @@
 import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
 import { ObjectId } from "@mikro-orm/mongodb";
-import { Field, ObjectType } from "type-graphql";
+import { Field, ID, ObjectType } from "type-graphql";
+import { UserRegisterInput } from "../resolvers/input-types/UserRegisterInput";
 
 @ObjectType() // type-graphql
 @Entity()     // orm
 export class User {
 
-   @Field(() => ObjectId)
+   @Field(() => ID)
    @PrimaryKey()
    _id: ObjectId
 
-   @Field()
-   @Property()
-   username: string
+   // @Field()
+   // @SerializedPrimaryKey()
+   // id
 
    @Field()
-   @Property()
-   email: string
+   @Property({ type: 'text', unique: true })
+   username!: string
+
+   @Field()
+   @Property({ type: 'text', unique: true })
+   email!: string
 
    @Property()
-   password: string
+   password!: string
 
    @Field(() => Date)
    @Property()
-   createdAt: Date
+   createdAt = new Date()
 
    @Field(() => Date)
-   @Property()
-   updatedAt: Date
+   @Property({ onUpdate: () => new Date() })
+   updatedAt = new Date()
+
+   constructor({ email, username, password }: UserRegisterInput) {
+      this.email = email
+      this.username = username
+      this.password = password
+   }
+
 }

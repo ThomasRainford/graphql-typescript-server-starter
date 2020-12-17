@@ -10,13 +10,23 @@ import { validateRegister } from '../utils/validateRegister'
 @Resolver(User)
 export class UserResolver {
 
-   // temp query for testing. 
-   @Query(() => String)
-   me(
-      @Ctx() { req }: OrmContext
-   ): string | undefined {
-      console.log(req.session.userId)
-      return req.session.userId
+   @Query(() => User, { nullable: true })
+   async me(
+      @Ctx() { em, req }: OrmContext
+   ): Promise<User | null> {
+
+      // First check if the user is logged in
+      // before attempting to query them.
+      if (!req.session.userId) {
+         return null
+      }
+
+      const repo = em.getRepository(User)
+
+      const user = await repo.findOne({ _id: req.session.userId })
+
+      return user
+
    }
 
    @Mutation(() => UserResponse)
@@ -64,7 +74,7 @@ export class UserResolver {
       // Stores user id session
       // Gives a cookie to the user
       // Logs them in once registered
-      req.session.userId = userId?.toHexString()
+      req.session.userId = userId
 
       return {
          user
@@ -114,7 +124,7 @@ export class UserResolver {
       }
 
       // log the user in
-      req.session.userId = user._id.toHexString()
+      req.session.userId = user._id
       console.log(req.session.cookie)
 
       return {

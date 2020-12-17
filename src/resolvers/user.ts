@@ -1,29 +1,12 @@
-import { OrmContext } from "src/types/types";
-import { User } from "../entities/User";
-import { Arg, Ctx, Field, Mutation, ObjectType, Query, Resolver } from "type-graphql";
-import { UserRegisterInput } from "./input-types/UserRegisterInput";
 import { ObjectId } from "@mikro-orm/mongodb";
 import argon2 from "argon2";
 import { COOKIE_NAME } from "src/constants";
+import { OrmContext } from "src/types/types";
+import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
+import { User } from "../entities/User";
+import { UserRegisterInput } from "./input-types/UserRegisterInput";
+import { UserResponse } from './object-types/UserResponse';
 //import session from "express-session";
-
-@ObjectType()
-class FieldError {
-   @Field()
-   field: string
-
-   @Field()
-   message: string
-}
-
-@ObjectType()
-class UserResponse {
-   @Field(() => [FieldError], { nullable: true })
-   errors?: FieldError[]
-
-   @Field(() => User, { nullable: true })
-   user?: User
-}
 
 @Resolver(User)
 export class UserResolver {

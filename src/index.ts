@@ -5,12 +5,12 @@ import cors from 'cors'
 import 'dotenv-safe/config'
 import express from "express"
 import session from 'express-session'
+import Redis from 'ioredis'
 import 'reflect-metadata'
 import { buildSchema } from "type-graphql"
+import { COOKIE_NAME, __prod__ } from './constants'
 import ormConfig from './mikro-orm.config'
 import { UserResolver } from "./resolvers/user"
-import Redis from 'ioredis'
-import { COOKIE_NAME, __prod__ } from './constants'
 import { OrmContext } from './types/types'
 
 const main = async () => {

@@ -1,7 +1,7 @@
 import { Entity, PrimaryKey, Property } from "@mikro-orm/core";
 import { ObjectId } from "@mikro-orm/mongodb";
-import { UserRegisterInput } from "../resolvers/input-types/UserRegisterInput";
 import { Field, ID, ObjectType } from "type-graphql";
+import { UserRegisterInput } from "../resolvers/input-types/UserRegisterInput";
 
 @ObjectType() // type-graphql
 @Entity()     // orm

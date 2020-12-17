@@ -4,6 +4,7 @@ import { Arg, Ctx, Field, Mutation, ObjectType, Query, Resolver } from "type-gra
 import { UserRegisterInput } from "./input-types/UserRegisterInput";
 import { ObjectId } from "@mikro-orm/mongodb";
 import argon2 from "argon2";
+import { COOKIE_NAME } from "src/constants";
 //import session from "express-session";
 
 @ObjectType()
@@ -130,7 +131,23 @@ export class UserResolver {
       return {
          user
       }
+   }
 
+   @Query(() => Boolean)
+   async logout(
+      @Ctx() { req, res }: OrmContext
+   ): Promise<boolean> {
+      return new Promise((resolve) => {
+         req.session.destroy((error) => {
+            res.clearCookie(COOKIE_NAME)
+            if (error) {
+               console.log(error)
+               resolve(false)
+               return
+            }
+            resolve(true)
+         })
+      })
    }
 
 

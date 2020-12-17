@@ -6,12 +6,12 @@ import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import { User } from "../entities/User";
 import { UserRegisterInput } from "./input-types/UserRegisterInput";
 import { UserResponse } from './object-types/UserResponse';
-//import session from "express-session";
+import validateRegister from '../utils/validateRegister'
 
 @Resolver(User)
 export class UserResolver {
 
-   // temp query for server to work
+   // temp query for testing. 
    @Query(() => String)
    me(
       @Ctx() { req }: OrmContext
@@ -28,6 +28,12 @@ export class UserResolver {
 
       const { email, username, password } = registerInput
       const repo = em.getRepository(User)
+
+      // Validate register info.
+      const errors: UserResponse | null = validateRegister(registerInput)
+      if (errors) {
+         return errors
+      }
 
       await repo.nativeDelete({ email, username })
 

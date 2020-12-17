@@ -1,8 +1,7 @@
-import { User } from "src/entities/User";
 import { Field, InputType } from "type-graphql";
 
 @InputType()
-export class UserRegisterInput implements Partial<User> {
+export class UserRegisterInput {
 
    @Field()
    email: string;

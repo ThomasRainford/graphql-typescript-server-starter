@@ -4,8 +4,9 @@
 
 ## Features
 
--  type-graphql
--  mikro-orm with nosql database
--  apollo server as graphql server
--  redis as cache for user cookies
--  nodemailer for password reset
+-  Type-GraphQL.
+-  Mikro-Orm with NoSql database.
+-  Apollo server as GraphQL server.
+-  Redis as cache for user cookies.
+-  Nodemailer for password reset.
+-  Generate enviroment variable types with gen-env-types.

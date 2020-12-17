@@ -1,4 +1,4 @@
-# Graphql-TypeScript Server Starter
+# GraphQL-TypeScript Server Starter
 
 ## Development in Progress
 

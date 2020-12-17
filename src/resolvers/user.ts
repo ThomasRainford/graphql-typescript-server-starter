@@ -1,4 +1,4 @@
-import { OrmContext } from "src/types";
+import { OrmContext } from "src/types/types";
 import { User } from "../entities/User";
 import { Arg, Ctx, Field, Mutation, ObjectType, Query, Resolver } from "type-graphql";
 import { UserRegisterInput } from "./input-types/UserRegisterInput";

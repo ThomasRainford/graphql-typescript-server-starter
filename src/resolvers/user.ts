@@ -1,4 +1,3 @@
-import { ObjectId } from "@mikro-orm/mongodb";
 import argon2 from "argon2";
 import { COOKIE_NAME } from "../constants";
 import { OrmContext } from "../types/types";
@@ -15,7 +14,7 @@ export class UserResolver {
    @Query(() => String)
    me(
       @Ctx() { req }: OrmContext
-   ): ObjectId | undefined {
+   ): string | undefined {
       console.log(req.session.userId)
       return req.session.userId
    }
@@ -65,7 +64,7 @@ export class UserResolver {
       // Stores user id session
       // Gives a cookie to the user
       // Logs them in once registered
-      req.session.userId = userId
+      req.session.userId = userId?.toHexString()
 
       return {
          user
@@ -115,7 +114,8 @@ export class UserResolver {
       }
 
       // log the user in
-      req.session.userId = user._id
+      req.session.userId = user._id.toHexString()
+      console.log(req.session.cookie)
 
       return {
          user

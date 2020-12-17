@@ -34,6 +34,7 @@ const main = async () => {
          name: COOKIE_NAME,
          store: new RedisStore({
             client: redis,
+            disableTTL: true,
             disableTouch: true
          }),
          cookie: {

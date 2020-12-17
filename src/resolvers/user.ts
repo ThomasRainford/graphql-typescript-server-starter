@@ -1,7 +1,7 @@
 import { ObjectId } from "@mikro-orm/mongodb";
 import argon2 from "argon2";
-import { COOKIE_NAME } from "src/constants";
-import { OrmContext } from "src/types/types";
+import { COOKIE_NAME } from "../constants";
+import { OrmContext } from "../types/types";
 import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import { User } from "../entities/User";
 import { UserRegisterInput } from "./input-types/UserRegisterInput";

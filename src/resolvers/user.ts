@@ -6,7 +6,7 @@ import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import { User } from "../entities/User";
 import { UserRegisterInput } from "./input-types/UserRegisterInput";
 import { UserResponse } from './object-types/UserResponse';
-import validateRegister from '../utils/validateRegister'
+import { validateRegister } from '../utils/validateRegister'
 
 @Resolver(User)
 export class UserResolver {

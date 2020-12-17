@@ -37,7 +37,7 @@ export class User {
    constructor({ email, username, password }: UserRegisterInput) {
       this.email = email
       this.username = username
-      this.password = password // Could hash password here
+      this.password = password
    }
 
 }

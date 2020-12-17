@@ -3,6 +3,7 @@ import { User } from "../entities/User";
 import { Arg, Ctx, Field, Mutation, ObjectType, Query, Resolver } from "type-graphql";
 import { UserRegisterInput } from "./input-types/UserRegisterInput";
 import { ObjectId } from "@mikro-orm/mongodb";
+import argon2 from "argon2";
 //import session from "express-session";
 
 @ObjectType()
@@ -59,10 +60,11 @@ export class UserResolver {
          }
       }
 
+      const hashedPassword = await argon2.hash(password)
       const user = new User({
          email,
          username,
-         password,
+         password: hashedPassword,
       })
 
       await em.persistAndFlush(user)
@@ -78,6 +80,57 @@ export class UserResolver {
       return {
          user
       }
+   }
+
+   @Query(() => UserResponse)
+   async login(
+      @Arg('usernameOrEmail') usernameOrEmail: string,
+      @Arg('password') password: string,
+      @Ctx() { req, em }: OrmContext
+   ): Promise<UserResponse> {
+
+      const repo = em.getRepository(User)
+
+      const isEmail = usernameOrEmail.includes('@')
+      const user = await repo.findOne(isEmail
+         ? {
+            email: usernameOrEmail
+         } : {
+            username: usernameOrEmail
+         })
+
+      // Validate usernameOrEmail.
+      if (!user) {
+         return {
+            errors: [
+               {
+                  field: 'usernameOrEmail',
+                  message: isEmail ? 'Email does not exist.' : 'Username does not exist.'
+               }
+            ]
+         }
+      }
+
+      // Validate password.
+      const valid = await argon2.verify(user.password, password)
+      if (!valid) {
+         return {
+            errors: [
+               {
+                  field: 'password',
+                  message: 'Incorrect Password.'
+               }
+            ]
+         }
+      }
+
+      // log the user in
+      req.session.userId = user._id
+
+      return {
+         user
+      }
+
    }
 
 

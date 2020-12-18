@@ -148,15 +148,29 @@ export class UserResolver {
 
    @Mutation(() => UserResponse)
    async updateUser(
-      @Arg('username') username: string,
-      @Ctx() { em, req }: OrmContext
+      @Ctx() { em, req }: OrmContext,
+      @Arg('username', { nullable: true }) username?: string,
+      @Arg('password', { nullable: true }) password?: string,
    ): Promise<UserResponse> {
+
+      // Check if both args exist.
+      if (!username && !password) {
+         return {
+            errors: [
+               {
+                  field: 'username & password',
+                  message: 'Requires either username or password or both.'
+               }
+            ]
+         }
+      }
 
       const repo = em.getRepository(User)
 
       const user = await repo.findOne({ _id: req.session.userId })
 
-      // Check if user is logged in.
+      // If the user is not logged in then send error.
+      // Otherwise update fields.
       if (!user) {
          return {
             errors: [
@@ -166,11 +180,17 @@ export class UserResolver {
                }
             ]
          }
+      } else {
+         if (username) {
+            user.username = username
+         }
+         if (password) {
+            user.password = await argon2.hash(password)
+         }
+
+         em.persistAndFlush(user)
       }
 
-      user.username = username
-
-      em.persistAndFlush(user)
 
       return {
          user

@@ -44,8 +44,6 @@ export class UserResolver {
          return errors
       }
 
-      await repo.nativeDelete({ email, username })
-
       const hasUser = await repo.findOne({ email, username })
 
       if (hasUser) {

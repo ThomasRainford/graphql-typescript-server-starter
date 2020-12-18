@@ -1,5 +1,5 @@
-import { UserResponse } from "src/resolvers/object-types/UserResponse";
-import { UserRegisterInput } from "../resolvers/input-types/UserRegisterInput";
+import { UserResponse } from "src/resolvers/object-types/UserResponse"
+import { UserRegisterInput } from "../resolvers/input-types/UserRegisterInput"
 
 export const validateRegister = (registerInput: UserRegisterInput): UserResponse | null => {
 

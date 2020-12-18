@@ -1,6 +1,6 @@
-import { MikroORM } from "@mikro-orm/core";
-import { MongoHighlighter } from "@mikro-orm/mongo-highlighter";
-import { User } from "./entities/User";
+import { MikroORM } from "@mikro-orm/core"
+import { MongoHighlighter } from "@mikro-orm/mongo-highlighter"
+import { User } from "./entities/User"
 
 export default {
    entities: [User],

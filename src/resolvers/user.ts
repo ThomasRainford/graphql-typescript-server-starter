@@ -1,10 +1,10 @@
-import argon2 from "argon2";
-import { COOKIE_NAME } from "../constants";
-import { OrmContext } from "../types/types";
-import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql";
-import { User } from "../entities/User";
-import { UserRegisterInput } from "./input-types/UserRegisterInput";
-import { UserResponse } from './object-types/UserResponse';
+import argon2 from "argon2"
+import { COOKIE_NAME } from "../constants"
+import { OrmContext } from "../types/types"
+import { Arg, Ctx, Mutation, Query, Resolver } from "type-graphql"
+import { User } from "../entities/User"
+import { UserRegisterInput } from "./input-types/UserRegisterInput"
+import { UserResponse } from './object-types/UserResponse'
 import { validateRegister } from '../utils/validateRegister'
 
 @Resolver(User)
@@ -26,7 +26,6 @@ export class UserResolver {
       const user = await repo.findOne({ _id: req.session.userId })
 
       return user
-
    }
 
    @Mutation(() => UserResponse)
@@ -190,7 +189,6 @@ export class UserResolver {
 
          em.persistAndFlush(user)
       }
-
 
       return {
          user

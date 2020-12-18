@@ -11,9 +11,10 @@ export class User {
    @PrimaryKey()
    _id: ObjectId
 
+   // This can be added
    // @Field()
    // @SerializedPrimaryKey()
-   // id
+   // id: string
 
    @Field()
    @Property({ type: 'text', unique: true })

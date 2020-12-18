@@ -125,7 +125,6 @@ export class UserResolver {
 
       // log the user in
       req.session.userId = user._id
-      console.log(req.session.cookie)
 
       return {
          user
@@ -149,5 +148,35 @@ export class UserResolver {
       })
    }
 
+   @Mutation(() => UserResponse)
+   async updateUser(
+      @Arg('username') username: string,
+      @Ctx() { em, req }: OrmContext
+   ): Promise<UserResponse> {
+
+      const repo = em.getRepository(User)
+
+      const user = await repo.findOne({ _id: req.session.userId })
+
+      // Check if user is logged in.
+      if (!user) {
+         return {
+            errors: [
+               {
+                  field: 'req.session.userId',
+                  message: 'Please login'
+               }
+            ]
+         }
+      }
+
+      user.username = username
+
+      em.persistAndFlush(user)
+
+      return {
+         user
+      }
+   }
 
 }

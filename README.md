@@ -83,8 +83,9 @@ User:login
 query Login($usernameOrEmail: String!, $password: String!) {
 	login(usernameOrEmail: $usernameOrEmail, password: $password) {
 		user {
-			username
+			_id
 			email
+			username
 		}
 		errors {
 			field
@@ -110,8 +111,9 @@ User:register
 mutation Register($registerInput: UserRegisterInput!) {
 	register(registerInput: $registerInput) {
 		user {
-			username
+			_id
 			email
+			username
 		}
 		errors {
 			field
@@ -127,6 +129,8 @@ User:updateUser
 mutation UpdateUser($username: String!, $password: String!) {
 	updateUser(username: $username, password: $password) {
 		user {
+			_id
+			email
 			username
 		}
 		errors {

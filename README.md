@@ -20,32 +20,32 @@ Lightweight boilerplate for a GraphQL TypeScript server for MongoDB databases wi
 
 ## Getting Started
 
-#### Step 1: Clone the repo.
+### Step 1: Clone the repo.
 
 ```bash
 $ git clone https://github.com/ThomasRainford/node-typescript-starter.git
 $ cd node-typescript-starter
 ```
 
-#### Step 2: Install the dependencies using yarn.
+### Step 2: Install the dependencies using yarn.
 
 ```bash
 $ yarn
 ```
 
-#### Step 3: Add a _.env_ file<br><br>
+### Step 3: Add a _.env_ file<br><br>
 
 You will need to add an _.env_ file which includes the enviroment variables found in the _.env.example_ file.
 
 You will also need to have a MongoDB username and password, and you will need to create a new DB and add the host name.
 
-#### <br>Step 4: Watch the .ts files.
+### <br>Step 4: Watch the .ts files.
 
 ```bash
 $ yarn watch
 ```
 
-#### Step 5: Launch in dev mode.
+### Step 5: Launch in dev mode.
 
 ```bash
 $ yarn dev
@@ -55,11 +55,11 @@ The .ts files will be compiled to JavaScript and placed in the dist directory. N
 
 **Note:** Step 3 and step 4 will need to be run in seperate terminals.
 
-#### Step 6: Open GraphQL Playground
+### Step 6: Open GraphQL Playground
 
 Go to the URL displayed in the console. i.e http://localhost:3000/graphql
 
-#### Step 7: Test the User queries and mutations
+### Step 7: Test the User queries and mutations
 
 **Note:** You will have to run the register mutation first.
 

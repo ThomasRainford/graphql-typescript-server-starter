@@ -48,3 +48,85 @@ $ yarn dev
 The .ts files will be compiled to JavaScript and placed in the dist directory. Nodemon will then run the project using the index.js file.
 
 **Note:** Step 3 and step 4 will need to be run in seperate terminals.
+
+**Step 5:** Open GraphQL Playground
+
+Go to the URL displayed in the console. i.e http://localhost:3000/graphql
+
+**Step 6:** Test the User queries and mutations
+
+**Note:** You will have to run the register mutation first.
+
+Queries:
+
+User:me
+
+```graphql
+query {
+	me {
+		_id
+		email
+		username
+	}
+}
+```
+
+User:login
+
+```graphql
+query Login($usernameOrEmail: String!, $password: String!) {
+	login(usernameOrEmail: $usernameOrEmail, password: $password) {
+		user {
+			username
+			email
+		}
+		errors {
+			field
+			message
+		}
+	}
+}
+```
+
+User:logout
+
+```graphql
+query {
+	logout
+}
+```
+
+Mutations:
+
+User:register
+
+```graphql
+mutation Register($registerInput: UserRegisterInput!) {
+	register(registerInput: $registerInput) {
+		user {
+			username
+			email
+		}
+		errors {
+			field
+			message
+		}
+	}
+}
+```
+
+User:updateUser
+
+```graphql
+mutation UpdateUser($username: String!, $password: String!) {
+	updateUser(username: $username, password: $password) {
+		user {
+			username
+		}
+		errors {
+			field
+			message
+		}
+	}
+}
+```

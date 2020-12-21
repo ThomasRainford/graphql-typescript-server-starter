@@ -140,3 +140,19 @@ mutation UpdateUser($username: String!, $password: String!) {
 	}
 }
 ```
+
+## Next Steps:
+
+-  Once all queries and mutations work you're good to go.
+-  Note that the user functionality can be used or removed, it's up to you.
+-  Checkout all scripts below.
+-  Feel free to open issues.
+
+## All Scripts:
+
+-  `yarn build` -- Compiles the .ts files into JavaScript.
+-  `yarn watch` -- Watches the .ts files and compiles them into JavaScript.
+-  `yarn dev` -- Runs the project in developer mode. This means any changes made will automatically re-run the typescript code.
+-  `yarn start` -- Runs the project using Node instead of nodemon.
+-  `yarn lint` -- Runs ESLint
+-  `yarn gen-env-types` -- Takes the .env file and generates a .d.ts file of the types for each variable.

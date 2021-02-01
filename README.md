@@ -23,8 +23,8 @@ Lightweight boilerplate for a GraphQL TypeScript server for MongoDB databases wi
 ### Step 1: Clone the repo.
 
 ```bash
-$ git clone https://github.com/ThomasRainford/node-typescript-starter.git
-$ cd node-typescript-starter
+$ git clone https://github.com/ThomasRainford/graphql-typescript-server-starter.git
+$ cd graphql-typescript-server-starter
 ```
 
 ### Step 2: Install the dependencies using yarn.

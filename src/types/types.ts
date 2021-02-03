@@ -7,5 +7,4 @@ export type OrmContext = {
    em: EntityManager<IDatabaseDriver<Connection>>
    req: Request & { session: { userId: ObjectId | undefined } },
    res: Response,
-   redis: Redis
 }

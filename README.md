@@ -8,7 +8,7 @@ Lightweight boilerplate for a GraphQL TypeScript server for MongoDB databases wi
 -  Mikro-Orm with MongoDB.
 -  GraphQL schema and ORM entities can be defined in the same class!
 -  Apollo server as the GraphQL server.
--  Redis cache for user cookies.
+-  MongoDB session storage.
 -  Generate enviroment variable types with gen-env-types.
 
 ### TypeScript Features
